@@ -85,6 +85,80 @@ export async function GetPanel(request: Request, env: Env): Promise<Response> {
       <link rel="shortcut icon" type="image/ico" href="https://dash.cloudflare.com/favicon.ico" />
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" rel="stylesheet" />
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+      <style>
+        :root {
+          --matix-bg: #0d0e1a;
+          --matix-panel: #14162b;
+          --matix-panel-2: #1b1e38;
+          --matix-border: #2a2e52;
+          --matix-accent: #7c5cff;
+          --matix-accent-2: #22d3ee;
+          --matix-text: #e6e7f0;
+          --matix-text-dim: #9296b8;
+        }
+        * { font-family: 'Inter', 'Vazirmatn', sans-serif; }
+        body[dir="rtl"] * { font-family: 'Vazirmatn', 'Inter', sans-serif; }
+        body {
+          background: radial-gradient(1200px 600px at 10% -10%, #221f4a 0%, transparent 60%),
+                      radial-gradient(1000px 500px at 110% 10%, #0e2e3a 0%, transparent 55%),
+                      var(--matix-bg) !important;
+          min-height: 100vh;
+          color: var(--matix-text) !important;
+          padding: 24px 0;
+        }
+        .container {
+          background: var(--matix-panel) !important;
+          border: 1px solid var(--matix-border) !important;
+          border-radius: 16px !important;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+          overflow: hidden;
+        }
+        .border-primary { border-color: var(--matix-border) !important; }
+        .border-top.border-primary, .border-bottom.border-primary { border-color: var(--matix-border) !important; }
+        #matix-header {
+          background: linear-gradient(120deg, rgba(124,92,255,0.18), rgba(34,211,238,0.10));
+          padding: 18px 20px;
+        }
+        #matix-brand {
+          font-size: 1.35rem;
+          font-weight: 700;
+          background: linear-gradient(90deg, var(--matix-accent), var(--matix-accent-2));
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          letter-spacing: .3px;
+        }
+        .bg-light { background-color: var(--matix-panel-2) !important; }
+        .text-dark, label, .form-label, .form-check-label { color: var(--matix-text) !important; }
+        .text-info { color: var(--matix-accent-2) !important; }
+        .form-text { color: var(--matix-text-dim) !important; }
+        .form-control, textarea, input[type=text], input[type=number], input[type=password], input:not([type=checkbox]) {
+          background-color: #0f1126 !important;
+          color: var(--matix-text) !important;
+          border: 1px solid var(--matix-border) !important;
+          border-radius: 8px !important;
+        }
+        .form-control:focus { border-color: var(--matix-accent) !important; box-shadow: 0 0 0 .2rem rgba(124,92,255,0.25) !important; }
+        .form-check-input { background-color: #0f1126; border-color: var(--matix-border); }
+        .form-check-input:checked { background-color: var(--matix-accent); border-color: var(--matix-accent); }
+        .btn-primary {
+          background: linear-gradient(90deg, var(--matix-accent), #6d5bff) !important;
+          border: none !important; border-radius: 8px !important; font-weight: 600;
+        }
+        .btn-primary:hover { filter: brightness(1.1); }
+        .btn-outline-primary { color: var(--matix-accent-2) !important; border-color: var(--matix-accent-2) !important; border-radius: 8px !important; }
+        .btn-outline-primary:hover { background-color: var(--matix-accent-2) !important; color: #0d0e1a !important; }
+        .btn-warning { background: #f59e0b !important; border: none !important; border-radius: 8px !important; color: #1a1a1a !important; }
+        .btn-danger { background: #ef4444 !important; border: none !important; border-radius: 8px !important; }
+        .btn-info { background: var(--matix-accent-2) !important; border: none !important; color: #0d0e1a !important; border-radius: 8px !important; }
+        a.link-dark { color: var(--matix-accent-2) !important; }
+        .modal-content { background: var(--matix-panel) !important; color: var(--matix-text) !important; border: 1px solid var(--matix-border) !important; }
+        .bg-success { background: #16a34a !important; }
+        .bg-danger { background: #ef4444 !important; }
+        .bg-warning { background: #f59e0b !important; color: #1a1a1a !important; }
+        fieldset, #includes, #type { border: 1px solid var(--matix-border); border-radius: 10px; padding: 12px; margin-top: 6px; }
+      </style>
       <script>
         let language = localStorage.getItem("lang") || "fa"
         window.addEventListener("load", (event) => {
@@ -210,7 +284,7 @@ export async function GetPanel(request: Request, env: Env): Promise<Response> {
       
         const strings = {
           en: {
-            "page-title": "V2ray Worker Control Panel",
+            "page-title": "⚡ Matix Panel",
             "text-version": "Version",
             "sub-link-title": "Your subscription link for v2ray clients (v2rayN, v2rayNG, v2rayA, Nekobox, Nekoray, V2Box...)",
             // "custom-link-title": "Your subscription link for custom configs",
@@ -243,7 +317,7 @@ export async function GetPanel(request: Request, env: Env): Promise<Response> {
             "reset-button": "Reset",
           },
           fa: {
-            "page-title": "پنل کنترل ورکر v2ray",
+            "page-title": "⚡ متیکس پنل",
             "text-version": "نسخه",
             "sub-link-title": "لینک ثبت نام شما برای کلاینت‌های v2rayN, v2rayNG, v2rayA, Nekobox, Nekoray, V2Box و...",
             // "custom-link-title": "لینک ثبت نام شما برای کانفیگ‌های Custom",
@@ -281,8 +355,8 @@ export async function GetPanel(request: Request, env: Env): Promise<Response> {
     <body id="body" style="--bs-body-font-size: .875rem">
       <div class="container border mt-3 p-0 border-primary border-2 rounded">
         <div id="lang-group" class="btn-group m-2" role="group" dir="ltr"></div>
-        <div class="p-2 border-bottom border-primary border-2">
-          <div class="text-nowrap fs-5 fw-bold text-dark">
+        <div id="matix-header" class="border-bottom border-primary border-2">
+          <div class="text-nowrap fs-4 fw-bold" id="matix-brand">
             <span id="page-title"></span> &nbsp;&nbsp;<span class="text-nowrap fs-6 text-info"><span id="text-version"></span> ${version}</span>
           </div>
         </div>
@@ -441,12 +515,31 @@ export async function GetPanel(request: Request, env: Env): Promise<Response> {
         <head>
           <meta charset="utf8" />
           <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+          <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+          <style>
+            :root {
+              --matix-bg: #0d0e1a; --matix-panel: #14162b; --matix-panel-2: #1b1e38;
+              --matix-border: #2a2e52; --matix-accent: #7c5cff; --matix-accent-2: #22d3ee;
+              --matix-text: #e6e7f0;
+            }
+            * { font-family: 'Inter', 'Vazirmatn', sans-serif; }
+            body { background: var(--matix-bg) !important; color: var(--matix-text) !important; padding: 24px 0; }
+            .container { background: var(--matix-panel) !important; border: 1px solid var(--matix-border) !important; border-radius: 16px !important; box-shadow: 0 20px 60px rgba(0,0,0,0.45); overflow: hidden; }
+            .border-primary { border-color: var(--matix-border) !important; }
+            #matix-header { background: linear-gradient(120deg, rgba(124,92,255,0.18), rgba(34,211,238,0.10)); padding: 18px 20px; }
+            #matix-brand { font-size: 1.35rem; font-weight: 700; background: linear-gradient(90deg, var(--matix-accent), var(--matix-accent-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+            .bg-light { background-color: var(--matix-panel-2) !important; }
+            .text-dark, label, .form-label { color: var(--matix-text) !important; }
+            .text-info { color: var(--matix-accent-2) !important; }
+            input:not([type=checkbox]) { background-color: #0f1126 !important; color: var(--matix-text) !important; border: 1px solid var(--matix-border) !important; border-radius: 8px !important; }
+            .btn-primary { background: linear-gradient(90deg, var(--matix-accent), #6d5bff) !important; border: none !important; border-radius: 8px !important; font-weight: 600; }
+          </style>
         </head>
         <body id="body" style="--bs-body-font-size: .875rem">
           <div class="container border mt-3 p-0 border-primary border-2 rounded">
             <div id="lang-group" class="btn-group m-2" role="group" dir="ltr"></div>
-            <div class="p-2 border-bottom border-primary border-2">
-              <div class="text-nowrap fs-5 fw-bold text-dark">
+            <div id="matix-header" class="border-bottom border-primary border-2">
+              <div class="text-nowrap fs-4 fw-bold" id="matix-brand">
                 <span id="page-title"></span> &nbsp;&nbsp;<span class="text-nowrap fs-6 text-info"><span id="text-version"></span> ${version}</span>
               </div>
             </div>
@@ -548,7 +641,7 @@ export async function GetPanel(request: Request, env: Env): Promise<Response> {
       
         const strings = {
           en: {
-            "page-title": "V2ray Worker Control Panel",
+            "page-title": "⚡ Matix Panel",
             "text-version": "Version",
             "sub-link-title": "Your subscription link for v2ray clients (v2rayN, v2rayNG, v2rayA, Nekobox, Nekoray, V2Box...)",
             // "custom-link-title": "Your subscription link for custom configs",
@@ -559,7 +652,7 @@ export async function GetPanel(request: Request, env: Env): Promise<Response> {
             "open-variables-text": "Open Worker's Variables",
           },
           fa: {
-            "page-title": "پنل کنترل ورکر v2ray",
+            "page-title": "⚡ متیکس پنل",
             "text-version": "نسخه",
             "sub-link-title": "لینک ثبت نام شما برای کلاینت‌های v2rayN, v2rayNG, v2rayA, Nekobox, Nekoray, V2Box و...",
             // "custom-link-title": "لینک ثبت نام شما برای کانفیگ‌های Custom",
